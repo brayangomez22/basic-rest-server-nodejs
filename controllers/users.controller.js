@@ -18,6 +18,7 @@ const getUsers = async (req = request, res = response, next) => {
 	} catch (error) {
 		res.status(500).json({
 			msg: 'Internal Server Error',
+			error,
 		});
 	}
 };
@@ -32,7 +33,7 @@ const updateUser = async (req = request, res = response) => {
 			restOfParameters.password = bcrypt.hashSync(password, salt);
 		}
 
-		const user = await User.findByIdAndUpdate(id, restOfParameters);
+		const user = await User.findByIdAndUpdate(id, restOfParameters, { new: true });
 
 		res.status(200).json({
 			msg: 'User updated successfully',
@@ -41,6 +42,7 @@ const updateUser = async (req = request, res = response) => {
 	} catch (error) {
 		res.status(500).json({
 			msg: 'Internal Server Error',
+			error,
 		});
 	}
 };
@@ -62,6 +64,7 @@ const addUser = async (req = request, res = response) => {
 	} catch (error) {
 		res.status(500).json({
 			msg: 'Internal Server Error',
+			error,
 		});
 	}
 };
@@ -69,7 +72,7 @@ const addUser = async (req = request, res = response) => {
 const deleteUser = async (req = request, res = response) => {
 	try {
 		const { id } = req.params;
-		const user = await User.findByIdAndUpdate(id, { state: false });
+		const user = await User.findByIdAndUpdate(id, { state: false }, { new: true });
 
 		res.status(201).json({
 			msg: 'User status changed successfully',
@@ -78,6 +81,7 @@ const deleteUser = async (req = request, res = response) => {
 	} catch (error) {
 		res.status(500).json({
 			msg: 'Internal Server Error',
+			error,
 		});
 	}
 };

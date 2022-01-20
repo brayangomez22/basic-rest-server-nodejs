@@ -39,6 +39,7 @@ const loginUser = async (req = request, res = response) => {
 	} catch (error) {
 		res.status(500).json({
 			msg: 'Internal Server Error',
+			error,
 		});
 	}
 };
@@ -79,6 +80,7 @@ const googleSignIn = async (req = request, res = response) => {
 	} catch (error) {
 		res.status(400).json({
 			msg: 'The token could not be verified',
+			error,
 		});
 	}
 };
