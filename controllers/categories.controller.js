@@ -79,7 +79,7 @@ const updateCategorie = async (req = request, res = response) => {
 		const { state, user, ...data } = req.body;
 
 		data.name = data.name.toUpperCase();
-		data.userId = req.user._id;
+		data.user = req.user._id;
 
 		const categorie = await Categorie.findByIdAndUpdate(id, data, { new: true });
 
