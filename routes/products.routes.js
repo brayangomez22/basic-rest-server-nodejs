@@ -2,9 +2,9 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 const { validateJWT, validateFields, isAdminRole, hasRole } = require('../middlewares');
-const { isProductExistsById, isCategorieExistsById } = require('../helpers/db-validators');
+const { isProductExistsById, isCategorieExistsById } = require('../helpers');
 
-const { getProducts, getProductById, addProduct, updateProduct, deleteProduct } = require('../controllers/products.controller');
+const { getProducts, getProductById, addProduct, updateProduct, deleteProduct } = require('../controllers');
 
 const router = Router();
 

@@ -6,6 +6,9 @@ const ProductsSchema = Schema({
 		required: [true, 'The name is required'],
 		unique: true,
 	},
+	img: {
+		type: String,
+	},
 	state: {
 		type: Boolean,
 		default: true,

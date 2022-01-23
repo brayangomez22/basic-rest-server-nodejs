@@ -1,9 +1,7 @@
 const { Router } = require('express');
 
 const { validateJWT } = require('../middlewares');
-const { search } = require('../controllers/searches.controller');
-
-const { validateFields } = require('../middlewares/validate-fields');
+const { search } = require('../controllers');
 
 const router = Router();
 

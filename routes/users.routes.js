@@ -3,8 +3,8 @@ const { check } = require('express-validator');
 
 const { validateJWT, isAdminRole, hasRole, validateFields } = require('../middlewares');
 
-const { isValidRole, isExistingEmail, isUserExistsById } = require('../helpers/db-validators');
-const { getUsers, updateUser, addUser, deleteUser } = require('../controllers/users.controller');
+const { isValidRole, isExistingEmail, isUserExistsById } = require('../helpers');
+const { getUsers, updateUser, addUser, deleteUser } = require('../controllers');
 
 const router = Router();
 
