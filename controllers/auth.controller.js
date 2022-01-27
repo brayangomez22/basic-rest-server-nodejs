@@ -33,12 +33,14 @@ const loginUser = async (req = request, res = response) => {
 
 		res.status(200).json({
 			msg: 'The login was executed successfully',
+			ok: true,
 			user,
 			token,
 		});
 	} catch (error) {
 		res.status(500).json({
 			msg: 'Internal Server Error',
+			ok: false,
 			error,
 		});
 	}
@@ -85,7 +87,27 @@ const googleSignIn = async (req = request, res = response) => {
 	}
 };
 
+const renewToken = async (req = request, res = response) => {
+	try {
+		const { user } = req;
+
+		const token = await generateJWT(user.id);
+
+		res.status(200).json({
+			msg: 'successfully renewed token',
+			user,
+			token,
+		});
+	} catch (error) {
+		res.status(400).json({
+			msg: 'The token could not be verified',
+			error,
+		});
+	}
+};
+
 module.exports = {
 	loginUser,
 	googleSignIn,
+	renewToken,
 };

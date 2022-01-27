@@ -2,13 +2,18 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
+const { createServer } = require('http');
 
 const { dbConnection } = require('../database/config');
+const { socketsController } = require('../sockets/sockets.controller');
 
 class Server {
 	constructor() {
 		this.app = express();
 		this.port = process.env.PORT;
+		this.server = createServer(this.app);
+		this.io = require('socket.io')(this.server);
+
 		this.paths = {
 			auth: '/api/auth',
 			users: '/api/users',
@@ -21,6 +26,7 @@ class Server {
 		this.connectDB();
 		this.middlewares();
 		this.routes();
+		this.sockets();
 	}
 
 	async connectDB() {
@@ -51,8 +57,12 @@ class Server {
 		this.app.use(this.paths.uploads, require('../routes/uploads.routes'));
 	}
 
+	sockets() {
+		this.io.on('connection', (socket) => socketsController(socket, this.io));
+	}
+
 	listen() {
-		this.app.listen(this.port, () => console.log(`Server running on the port ${this.port}`));
+		this.server.listen(this.port, () => console.log(`Server running on the port ${this.port}`));
 	}
 }
 
